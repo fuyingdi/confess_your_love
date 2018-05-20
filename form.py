@@ -9,4 +9,4 @@ class MyloveForm(FlaskForm):
                 DataRequired(message= u'邮箱不能为空'), Length(1, 64)])
     lovername = StringField('你喜欢的人的名字',validators=[
                 DataRequired(message= u'邮箱不能为空'), Length(1, 64)])
-    submit = SubmitField('献上你的爱')
+    submit = SubmitField('悄悄表白')

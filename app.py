@@ -16,10 +16,13 @@ def love():
         db.beloved.insert_one({'name': lovername})
     return render_template('submit.html',form=form)
 
+
 def judge(name):
-    cur=db.beloved.find({'name':name}
-    if cur not None:
+    cur=db.beloved.find({'name':name})
+    if cur:
         return True
+    else:
+        return False
 
 
 @app.route('/home')
