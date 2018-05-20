@@ -1,12 +1,13 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, url_for
 from form import MyloveForm
 from database import db
 import pymongo
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'FOR MY DEAREST GIRL'
 
 
-@app.route('/love')
+@app.route('/love', methods=['POST', 'GET'])
 def love():
     form = MyloveForm()
     if form.validate_on_submit():
@@ -14,22 +15,20 @@ def love():
         lovername = form.lovername.data
         db.lovers.insert_one({'name': myname})
         db.beloved.insert_one({'name': lovername})
-    return render_template('submit.html',form=form)
+    return redirect(url_for('home'))
+
+
+@app.route('/home', methods=['POST', 'GET'])
+def home():
+    return render_template('index.html')
 
 
 def judge(name):
-    cur=db.beloved.find({'name':name})
+    cur = db.beloved.find({'name': name})
     if cur:
         return True
     else:
         return False
-
-
-@app.route('/home')
-def index():
-    pass
-
-
 
 
 if __name__ == '__main__':
