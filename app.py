@@ -10,10 +10,11 @@ app.config['SECRET_KEY'] = 'FOR MY DEAREST GIRL'
 @app.route('/love', methods=['POST', 'GET'])
 def love():
     form = MyloveForm()
-    if form.validate_on_submit():
+    if form.is_submitted():
         myname = form.myname.data
         lovername = form.lovername.data
-        comment = form.comment.data()
+        comment = form.comment.data
+        print("myname:{}, lovename:{},comment:{}".format(myname, lovername, comment))
         db.lovers.insert_one({'name': myname})
         db.beloved.insert_one({'name': lovername})
         db.loverelation.insert_one({"host": myname, "beloved": lovername, "comment": comment})
@@ -34,4 +35,4 @@ def judge(name):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0')
