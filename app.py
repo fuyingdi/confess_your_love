@@ -15,11 +15,11 @@ def love():
         lovername = form.lovername.data
         comment = form.comment.data
         print("myname:{}, lovename:{},comment:{}".format(myname, lovername, comment))
-        id1 = db.lovers.insert_one({'name': myname})
-        id2 = db.beloved.insert_one({'name': lovername})
-        db.loverelation.insert_one({"host": myname, "beloved": lovername, "comment": comment, "id1": id1, "id2": id2})
-        if db.loverelation.find({"beloved": myname}):
-            for data in db.loverelation.find({"beloved": myname}):
+        id1 = db.lovers.insert_one({'name': myname}).inserted_id
+        id2 = db.beloved.insert_one({'name': lovername}).inserted_id
+        db.loverelation.insert_one({'host': myname, 'beloved': lovername, 'comment': comment, 'id1': str(id1), 'id2': str(id2)})
+        if db.loverelation.find({'beloved': myname}):
+            for data in db.loverelation.find({'beloved': myname}):
                 print("有情人终成眷属:{}".format(data['comment']))
     return redirect(url_for('home'))
 
