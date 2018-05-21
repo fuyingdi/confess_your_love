@@ -1,0 +1,4 @@
+Flask===1.0.2
+Flask-WTF===0.14.2
+pymongo===3.6.1
+Flask-Bootstrap===3.3.7.1
