@@ -21,6 +21,7 @@ def love():
         if db.loverelation.find({'beloved': myname}):
             for data in db.loverelation.find({'beloved': myname}):
                 print("有情人终成眷属:{}".format(data['comment']))
+                return render_template('inlove.html')
     return redirect(url_for('home'))
 
 
