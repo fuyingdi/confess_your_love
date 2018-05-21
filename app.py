@@ -13,8 +13,10 @@ def love():
     if form.validate_on_submit():
         myname = form.myname.data
         lovername = form.lovername.data
+        comment = form.comment.data()
         db.lovers.insert_one({'name': myname})
         db.beloved.insert_one({'name': lovername})
+        db.loverelation.insert_one({"host": myname, "beloved": lovername, "comment": comment})
     return redirect(url_for('home'))
 
 
